@@ -30,6 +30,9 @@ async function getUserData(userId, sinceId = null) {
         } else {
             console.log("Starting first import of tweets");
             tweets = await getUserDataFrom(parameters);
+
+            // Change order of tweets to insert them chronologically
+            tweets = tweets.reverse();
         }
 
         return tweets;
@@ -60,7 +63,7 @@ async function getUserDataSince(parameters, sinceId) {
 
     console.log({ tweets: tweets.length, since_id: newMinId.toString() });
 
-    return tweets.concat(await getUserDataFrom(parameters, newMinId));
+    return tweets.concat(await getUserDataSince(parameters, newMinId));
 }
 
 /**

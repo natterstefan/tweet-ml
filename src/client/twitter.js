@@ -19,7 +19,9 @@ async function getUserData(userId, sinceId = null) {
     try {
         let parameters = {
             user_id: userId,
-            count: 200
+            count: 200,
+            exclude_replies: false,
+            include_rts: true
         };
 
         let tweets = [];

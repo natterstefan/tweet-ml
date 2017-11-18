@@ -1,38 +1,37 @@
 require('dotenv').config();
 
-const TwitterClient = require('./client/twitter');
-const Persistence = require('./persistence/persistence');
+const { fetchTweets } = require('./controller/fetchTweets'),
+    { normalizeTweets } = require('./controller/normalize');
 
-const connection = new Persistence();
-
-async function start() {
-    try {
-        // Establish database connection
-        await connection.connect();
-
-        // Fetch last docuent from mongo
-        let lastTweet = await connection.fetchLatestTweet();
-
-        const userId = process.env.TWITTER_USER;
-        let tweets = await TwitterClient.getUserData(userId, lastTweet ? lastTweet.id_str : null);
-
-        console.log("Results: ", tweets.length);
-
-        if (tweets.length > 0) {
-            let result = await connection.insertTweets(tweets);
-            console.log("Inserted " + result.result.n + " tweets");
-        }
-
-    } catch (e) {
-        console.error(e);
-    } finally {
-        connection.disconnect();
-    }
+if (process.argv.length <= 2) {
+    throw new Error("Missing Argument. Please add arguments [fetch|normalize]");
 }
 
-start().then(() => {
-    console.log("Finished");
-}).catch(e => {
-    console.error(e);
-});
+switch (process.argv[2].toLowerCase()) {
+    case 'fetch':
+        startFetch();
+        break;
+    case 'normalize':
+        startNormalize();
+        break;
+    default:
+        throw new Error("Unknown mode. Please use arguments [fetch|normalize]");
+}
 
+function startFetch() {
+    console.log("Starting fetching tweets");
+    fetchTweets().then(() => {
+        console.log("Fetched new tweets");
+    }).catch(e => {
+        console.error(e);
+    });
+}
+
+function startNormalize() {
+    console.log("Starting normalizing tweets");
+    normalizeTweets().then(() => {
+        console.log("Normalized existing tweets");
+    }).catch(e => {
+        console.error(e);
+    });
+}

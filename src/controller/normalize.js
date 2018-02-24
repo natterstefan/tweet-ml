@@ -15,6 +15,7 @@ async function normalizeTweets() {
 
         // For every property, create an array that contains all values of all properties
         // and normalize those values
+        let keys = Object.keys(features[0]);
         Object.keys(features[0]).forEach((key) => {
             let values = features.map((item) => (item[key]));
 
@@ -38,7 +39,8 @@ function normalizeData(data, min = -1.0, max = 1.0) {
         delta = maxValue - minValue;
 
     if (delta === 0) {
-        return data;
+        // If the max and min values are the same, we return only 0 values
+        return data.map(() => 0);
     }
 
     const factor = (max - min) / delta;

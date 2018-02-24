@@ -12,12 +12,16 @@ Twitter Machine Learning Prototype
 ```
   node 8.9.x
   docker
+  python3
+  pipenv
 ```
 
 ## Setup
 
 Clone the repository, use the required node version with `nvm use` and install
 the packages with `npm i`.
+
+For the python dependencies install [pipenv](https://github.com/pypa/pipenv) and run `pipenv install`.
 
 ## Configuration
 
@@ -40,12 +44,16 @@ Example
   npm run fetch
 ```
 
+### Running Python Scripts
+
+First load your virtual env with `pipenv shell`. This will also make sure that the `.env` file is read.
+
 ## Scripts
 
 - `npm run fetch`: gets the data from the defined userId (see [.env.dist](.env.dist))
   and stores them in the mongodb
 - `npm run normalize`: normalises the data and stores them in the mongodb
-
+- `python3 src-python/draw-graph.py`: loads tweets from mongodb and draws boxplot and mosaic graphs
 
 ## Authors
 

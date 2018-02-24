@@ -10,7 +10,7 @@ class Persistence {
      * Connect to mongodb
      */
     async connect() {
-        this.connection = await MongoClient.connect(process.env.MONGO_DSN);
+        this.connection = await MongoClient.connect(`mongodb://${process.env.MONGO_HOST}:${process.env.MONGO_PORT}/${process.env.MONGO_DB}`);
 
         console.log("Connection established");
     }

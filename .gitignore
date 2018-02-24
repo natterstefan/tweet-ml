@@ -60,3 +60,5 @@ typings/
 # Custom
 *.orig
 *.DS_Store
+
+.vscode/

@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "description": "Twitter Machine Learning Prototype",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/natterstefan/tweet-ml"
+  },
   "main": "src/index.js",
   "scripts": {
     "start": "npm run fetch",

@@ -28,6 +28,7 @@ def create_boxplot(dataframe):
     pylab.show()
 
 def create_boxplot_from_arrays(array1, array2, labels=None, title='Plot', xlabel='x', ylabel='y'):
+    """ Create a boxplot from two arrays. Best for visualizing the distributon of a numerical variable """
     fig = pyplot.figure()
     fig.suptitle(title, fontsize=14, fontweight='bold')
 
